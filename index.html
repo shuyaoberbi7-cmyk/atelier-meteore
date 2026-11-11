@@ -60,6 +60,13 @@ header nav a{font:500 11px "Cormorant Garamond";letter-spacing:.18em;color:var(-
 .card h4{font:400 84px/1 "Pinyon Script";color:var(--ink)}.card .sub{font:400 22px "Noto Serif TC";letter-spacing:.35em;color:#6c78a8;margin-bottom:10px}
 .card a,.card span{font:400 28px "Noto Serif TC";color:var(--ink);text-decoration:none}.card b{font:italic 500 24px "Cormorant Garamond";color:#7884b4;margin-right:10px;letter-spacing:.06em}
 .card i{font-style:normal;color:#7884b4;font-size:20px;margin-top:6px}
+.pay{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;border-top:1px solid #d6d9e8;padding-top:26px}
+.pay .ttl2{grid-column:1/-1;font:400 44px/1 "Pinyon Script";color:var(--ink);margin-bottom:4px}
+.pay figure{position:relative;margin:0;aspect-ratio:231/318}
+.pay figure img{position:absolute;left:10%;top:8.2%;width:79.7%;height:59.1%;object-fit:contain;background:#f7f4ed}
+.pay figure::after{content:"";position:absolute;inset:0;background:url(img/frame.png) center/100% 100%;pointer-events:none}
+.pay figure figcaption{position:absolute;left:0;right:0;top:80%;text-align:center;font:500 22px "Noto Serif TC";letter-spacing:.12em;color:var(--ink);z-index:2}
+.card{max-height:94vh;overflow:auto}
 </style></head><body>
 <div class="wrap">
 <header>
@@ -85,7 +92,10 @@ header nav a{font:500 11px "Cormorant Garamond";letter-spacing:.18em;color:var(-
  <a href="mailto:xuyuan1007yaoyao@gmail.com"><b>Mail</b>xuyuan1007yaoyao@gmail.com</a>
  <a href="https://t.me/XuyuanYao_bot"><b>Telegram</b>@XuyuanYao_bot</a>
  <span><b>小红书</b>今晚也许愿 · yuanoxoyuan2333</span>
- <span><b>QQ</b>3942864225</span><i>✦</i></div></div>
+ <span><b>QQ</b>3942864225</span><div class="pay"><p class="ttl2">Pour une étoile</p>
+ <figure><img src="img/qr_zan.png" alt="微信赞赏码"><figcaption>微信赞赏</figcaption></figure>
+ <figure><img src="img/qr_wxpay.png" alt="微信收款码"><figcaption>微信支付</figcaption></figure>
+ <figure><img src="img/qr_alipay.png" alt="支付宝收款码"><figcaption>支付宝</figcaption></figure></div><i>✦</i></div></div>
 <div class="lb" id="lb"><img alt=""></div>
 <script>
 const lb=document.getElementById('lb');
