@@ -49,7 +49,7 @@ header nav a{font:500 11px "Cormorant Garamond";letter-spacing:.18em;color:var(-
 .contact{position:relative;max-width:800px;margin:64px auto 70px;aspect-ratio:800/252;background:url(img/env.png) center/100% 100%;filter:drop-shadow(0 6px 10px rgba(60,70,120,.15))}
 .contact .ct{position:absolute;left:18%;right:18%;white-space:nowrap;top:72.5%;display:grid;grid-template-columns:auto auto;justify-content:center;gap:2px 26px;font:400 12.5px/1.55 "Noto Serif TC";color:var(--ink);letter-spacing:.04em}
 .contact .ct a{color:inherit;text-decoration:none}.contact .ct b{font:italic 500 12px "Cormorant Garamond";color:#7884b4;margin-right:6px;letter-spacing:.08em}
-@media(max-width:640px){.contact{aspect-ratio:auto;background:#f4f2ec;padding:22px 10px;border:1px solid #c9cde0}.contact .ct{position:static;grid-template-columns:1fr;text-align:center}}
+@media(max-width:640px){.contact{background:none;aspect-ratio:auto;filter:none}.contact::before{content:"";display:block;aspect-ratio:800/252;background:url(img/env.png) center/100% 100%;filter:drop-shadow(0 6px 10px rgba(60,70,120,.15))}.contact .ct{position:static;grid-template-columns:1fr;text-align:center;white-space:normal;margin-top:18px;font-size:13.5px}}
 </style></head><body>
 <div class="wrap">
 <header>
