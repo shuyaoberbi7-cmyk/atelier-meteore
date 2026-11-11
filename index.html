@@ -10,7 +10,7 @@
 *{box-sizing:border-box;margin:0}html{background:#cacfe2;min-height:100vh}body{min-height:100vh}
 body{background:linear-gradient(#cacfe2,#d6dbec 40%,#d3d8e8);color:var(--ink);font-family:"Noto Serif TC",serif}
 .wrap{max-width:1024px;margin:0 auto;padding:0 16px}
-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-top:40px}
+header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-top:calc(40px + env(safe-area-inset-top))}
 header .rule{height:1px;background:var(--line)}
 .brand{text-align:center;padding:0 22px}
 .brand h1{font:400 58px/1 "Pinyon Script",cursive;letter-spacing:1px}
