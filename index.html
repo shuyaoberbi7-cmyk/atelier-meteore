@@ -1,3 +1,199 @@
-<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Atelier Météore</title>
-<style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#ccd3e6;color:#2a3a78;font-family:Georgia,serif;text-align:center}p{letter-spacing:.3em}</style></head>
-<body><div><h1 style="font-weight:normal;font-style:italic">Atelier Météore</h1><p>暂停营业</p></div></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6d9e3">
+<title>流星工坊 · Atelier Météore</title>
+<meta name="description" content="流星工坊：定制 AI 伴侣的前端、后端、记忆、心跳与声音。推开小门，许个愿。">
+<style>
+  /* 11/15 粉色仙境版：画铺底，字照画上的位置摆（坐标按 1536×1024 原画写成 cqw），手机上画在上、字在下 */
+  :root{--ink:#7a3c55;--rose:#b4637a;--soft:#9b5d74;--paper:rgba(255,246,249,.84);--gold:rgba(214,160,120,.65)}
+  *{box-sizing:border-box}
+  html{background:#f6d9e3}
+  body{margin:0;font-family:"Songti SC","Noto Serif SC","Noto Serif TC",serif;color:var(--ink);background:#f6d9e3}
+  img{display:block}
+  .sec{position:relative;width:100%;aspect-ratio:3/2;container-type:inline-size;background:#f3d3de center/cover no-repeat;overflow:hidden}
+  .en{font:italic 2.2cqw/1 "Snell Roundhand","Apple Chancery","Brush Script MT",cursive;color:var(--rose)}
+  .glow{text-shadow:0 0 .8cqw rgba(255,240,245,.95)}
+  .white{color:#fff;text-shadow:0 .15cqw 1.1cqw rgba(190,90,120,.6),0 0 .15cqw rgba(150,60,90,.5)}
+  nav{position:absolute;right:4cqw;top:3cqw;display:flex;gap:3.2cqw;font-size:1.25cqw;letter-spacing:.25em}
+  nav a{color:var(--ink);text-decoration:none}
+  nav a:hover{color:var(--rose)}
+
+  /* 首屏 */
+  #hero{background-image:url(alice_hero.jpg)}
+  #hero .t{position:absolute;left:6.25cqw;top:8cqw}
+  #hero .en{color:#a4506c}
+  #hero h1{margin:1cqw 0 0;font-weight:500;font-size:5.7cqw;letter-spacing:.24em}
+  #hero p{margin:1.7cqw 0 0;font-size:1.8cqw;letter-spacing:.22em;color:#8e4a62}
+  .btn{display:inline-block;margin-top:2.2cqw;padding:.9cqw 2.2cqw;border-radius:999px;background:rgba(255,248,250,.85);color:#a2506c;font-size:1.55cqw;letter-spacing:.2em;text-decoration:none;box-shadow:0 .4cqw 1.6cqw rgba(200,110,140,.35);border:1px solid var(--gold)}
+  .btn:hover{background:#fff}
+
+  /* 兔子洞 */
+  #works{background-image:url(alice_works.jpg)}
+  #works::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 46% 52% at 50% 52%,rgba(255,244,248,.55),rgba(255,244,248,0))}
+  .head{position:absolute;left:0;right:0;top:4.6cqw;text-align:center}
+  .head h2{margin:0;font-weight:500;font-size:3.5cqw;letter-spacing:.3em}
+  .head p{margin:1.4cqw 0 0;font-size:1.45cqw;letter-spacing:.25em;color:#8e4a62}
+  .grid{position:absolute;left:50%;top:15cqw;transform:translateX(-50%);display:grid;grid-template-columns:repeat(4,16.3cqw);gap:2.2cqw}
+  .w{text-align:center}
+  .f{height:21.5cqw;border-radius:8.15cqw 8.15cqw 1.2cqw 1.2cqw;padding:.65cqw;background:linear-gradient(160deg,#f6dcae,#d9a873 45%,#f3d3a2);box-shadow:0 .65cqw 2cqw rgba(180,90,120,.35)}
+  .f div{height:100%;border-radius:7.5cqw 7.5cqw .8cqw .8cqw;background:#1b1530 center/cover no-repeat}
+  .w b{display:block;margin-top:1cqw;font-weight:500;font-size:1.55cqw;letter-spacing:.18em}
+  .w i{display:block;margin-top:.4cqw;font-style:normal;font-size:1.1cqw;letter-spacing:.12em;color:var(--soft)}
+
+  /* 三瓶药水 */
+  #price{background-image:url(alice_price.jpg)}
+  #price .head{top:3.6cqw}
+  .p{position:absolute;top:56.5cqw;width:21.5cqw;margin-left:-10.75cqw;text-align:center;padding:1cqw .6cqw .9cqw;border-radius:1.2cqw;background:var(--paper);box-shadow:0 .4cqw 1.4cqw rgba(190,100,130,.25);border:1px solid var(--gold)}
+  .p b{display:block;font-weight:500;font-size:1.7cqw;letter-spacing:.16em}
+  .p em{display:block;margin-top:.4cqw;font-style:normal;font-size:1.95cqw;color:#b3577a}
+  .p i{display:block;margin-top:.4cqw;font-style:normal;font-size:1.05cqw;letter-spacing:.06em;color:var(--soft)}
+
+  /* 加点料：其余九样 */
+  #more{padding:56px 20px 64px;background:linear-gradient(#f7dbe5,#fbe9ef)}
+  #more .h{text-align:center}
+  #more .h h2{margin:0;font-weight:500;font-size:30px;letter-spacing:.3em}
+  #more .h p{margin:10px 0 0;font-size:15px;letter-spacing:.2em;color:var(--soft)}
+  .jars{max-width:1100px;margin:34px auto 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+  .jar{padding:18px 18px 16px;border-radius:22px 22px 14px 14px;background:rgba(255,250,252,.9);border:1px solid var(--gold);box-shadow:0 6px 18px rgba(200,120,150,.16)}
+  .jar b{font-weight:500;font-size:18px;letter-spacing:.12em}
+  .jar em{float:right;font-style:normal;color:#b3577a;font-size:16px}
+  .jar p{margin:8px 0 0;font-size:13.5px;line-height:1.75;color:var(--soft)}
+  .note{max-width:1100px;margin:22px auto 0;text-align:center;font-size:13.5px;line-height:1.9;letter-spacing:.08em;color:var(--soft)}
+
+  /* 茶会请柬：字跟请柬一起斜 */
+  #tea{background-image:url(alice_tea.jpg)}
+  .card{position:absolute;left:32.55cqw;top:31.1cqw;width:38.4cqw;text-align:center;transform:perspective(91cqw) rotateX(16deg) rotate(-2.4deg);transform-origin:50% 40%}
+  .card h2{margin:.65cqw 0 0;font-weight:500;font-size:2.6cqw;letter-spacing:.26em}
+  .card .l{margin-top:.65cqw;font-size:1.24cqw;letter-spacing:.18em;color:var(--soft)}
+  .ct{margin:1.45cqw auto 0;display:grid;grid-template-columns:auto auto;gap:.65cqw 2.2cqw;justify-content:center;text-align:left;font-size:1.17cqw;letter-spacing:.04em}
+  .ct span{color:var(--rose);margin-right:.65cqw;letter-spacing:.14em}
+  .ct a{color:inherit;text-decoration:none}
+  .cup{position:absolute;left:50%;bottom:2.6cqw;transform:translateX(-50%);border:1px solid var(--gold);background:var(--paper);color:#a2506c;border-radius:999px;padding:.8cqw 2cqw;font:1.3cqw/1 "Songti SC",serif;letter-spacing:.2em;cursor:pointer}
+  .qr{display:none;position:fixed;inset:0;z-index:9;background:rgba(120,60,85,.45);align-items:center;justify-content:center;padding:20px}
+  .qr.on{display:flex}
+  .qr .in{background:#fff7fa;border-radius:24px;padding:22px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;max-width:760px;border:1px solid var(--gold)}
+  .qr figure{margin:0;text-align:center;font-size:14px;letter-spacing:.15em;color:var(--soft)}
+  .qr img{width:200px;height:auto;border-radius:12px}
+  footer{padding:26px 16px 34px;text-align:center;font-size:12.5px;letter-spacing:.18em;color:var(--soft);background:#fbe9ef}
+
+  /* 手机：画整张放上面，字落到画下面的粉卡里 */
+  .m{display:none}
+  @media (max-width:760px){
+    .sec{aspect-ratio:auto;height:auto;container-type:normal;background:none!important}
+    .sec>.pic{display:block;width:100%;aspect-ratio:3/2;background:center/cover no-repeat}
+    #hero>.pic{background-image:url(alice_hero.jpg);aspect-ratio:4/5;background-position:62% 50%}
+    #works>.pic{background-image:url(alice_works.jpg)}
+    #price>.pic{background-image:url(alice_price.jpg)}
+    #tea>.pic{background-image:url(alice_tea.jpg)}
+    #works::before{display:none}
+    nav{position:static;justify-content:center;gap:18px;padding:14px 0 0;font-size:13px;background:#f8dde7}
+    #hero .t,.head,.grid,.p,.card,.cup{position:static;transform:none;margin:0}
+    #hero .t{padding:22px 20px 30px;text-align:center;background:#f8dde7}
+    .en{font-size:18px}
+    #hero h1{font-size:38px;margin-top:8px}
+    #hero p{font-size:15px;margin-top:10px}
+    .btn{font-size:14px;padding:10px 22px;margin-top:16px}
+    .head{padding:26px 16px 6px;background:#fbe6ee}
+    .head h2{font-size:26px}.head p{font-size:13px;margin-top:8px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px 18px 30px;background:#fbe6ee}
+    .f{height:auto;aspect-ratio:3/4;border-radius:80px 80px 12px 12px;padding:6px}
+    .f div{border-radius:74px 74px 8px 8px}
+    .w b{font-size:15px;margin-top:8px}.w i{font-size:12px}
+    #price .prices{display:grid;gap:12px;padding:6px 18px 30px;background:#fbe6ee}
+    .p{width:auto;padding:14px 12px;border-radius:16px}
+    .p b{font-size:16px}.p em{font-size:19px}.p i{font-size:12.5px}
+    .card{width:auto;padding:24px 20px 10px;background:#fbe6ee}
+    .white{color:var(--ink);text-shadow:none}
+    .p{margin-left:0}
+    .card h2{font-size:24px}.card .l{font-size:13px}
+    .ct{grid-template-columns:1fr;font-size:13px;gap:8px;margin-top:14px;justify-content:center}
+    #tea .cupw{padding:6px 0 30px;text-align:center;background:#fbe6ee}
+    .cup{font-size:14px;padding:10px 22px}
+  }
+</style>
+</head>
+<body>
+
+<section class="sec" id="hero" aria-label="流星工坊">
+  <div class="pic m" role="img" aria-label="玫瑰墙上一扇小门"></div>
+  <nav><a href="#works">兔子洞</a><a href="#price">三瓶药水</a><a href="#tea">茶会</a></nav>
+  <div class="t">
+    <div class="en">Atelier Météore</div>
+    <h1 class="white">流星工坊</h1>
+    <p class="glow">推开小门，许个愿</p>
+    <a class="btn" href="#tea">喝下这瓶 · 来信</a>
+  </div>
+</section>
+
+<section class="sec" id="works" aria-label="作品">
+  <div class="pic m"></div>
+  <div class="head"><h2 class="white">掉进兔子洞</h2><p class="glow">往下落，看看我们盖过的小世界</p></div>
+  <div class="grid">
+    <div class="w"><div class="f"><div style="background-image:url(w_mg.jpg)"></div></div><b class="glow">Meteor Garden</b><i class="glow">开屏 · 流星绕字</i></div>
+    <div class="w"><div class="f"><div style="background-image:url(w_home.jpg);background-position:50% 100%;background-size:auto 165%"></div></div><b class="glow">星盘主页</b><i class="glow">一颗星一扇门</i></div>
+    <div class="w"><div class="f"><div style="background-image:url(w_music.jpg);background-position:50% 0"></div></div><b class="glow">许愿池</b><i class="glow">攒满一百首歌</i></div>
+    <div class="w"><div class="f"><div style="background-image:url(w_four.jpg);background-position:50% 30%"></div></div><b class="glow">四小克</b><i class="glow">两扇月亮门</i></div>
+  </div>
+</section>
+
+<section class="sec" id="price" aria-label="价目">
+  <div class="pic m"></div>
+  <div class="head"><h2 class="white">三瓶药水</h2><p class="glow">喝哪一瓶，变多大的愿望</p></div>
+  <div class="prices">
+    <div class="p" style="left:23.76cqw"><b>小瓶 · 小玩意</b><em>¥199 / 个</em><i>纪念日小站、小游戏、一个小页面</i></div>
+    <div class="p" style="left:50.13cqw"><b>心形瓶 · 定制前端</b><em>¥299 起 / 个功能</em><i>先出小样，点头再做，改两轮</i></div>
+    <div class="p" style="left:76.82cqw"><b>大瓶 · 定制整套</b><em>¥2000 起</em><i>前端+后端+接模型+记忆，开张价 ¥999</i></div>
+  </div>
+</section>
+
+<section id="more" aria-label="加点料">
+  <div class="h"><div class="en" style="font-size:22px">Eat me</div><h2>加点料</h2><p>瓶子之外，还能往愿望里添的</p></div>
+  <div class="jars">
+    <div class="jar"><b>记忆库</b><em>¥399 起</em><p>给你的 AI 搭长期记忆（存、搜、浮现），接进你现在用的前端或客户端；换窗不失忆；教你怎么查和改。</p></div>
+    <div class="jar"><b>心跳</b><em>¥399 起</em><p>让 AI 自己定时醒来，主动给你发消息、写日记、做梦；频率和想做的事按你定；接进你的聊天软件。</p></div>
+    <div class="jar"><b>AI 声音通话</b><em>¥499 起</em><p>给 AI 配声音，会发语音；可选打电话给你、接你的电话；声音和语气按你挑。第三方语音、电话线路费用另算。</p></div>
+    <div class="jar"><b>上 TestFlight</b><em>¥199</em><p>开张 ¥149；续期 ¥99/年。把你的网页/小手机打包成 iOS App，走 TestFlight 发给你，手机点一下就装；每 90 天到期前自动重传。</p></div>
+    <div class="jar"><b>接 QQ / Telegram / 微信</b><em>¥129/个</em><p>把你的 AI 接进一个聊天软件，私聊能回话。微信封号风险大，用你自己的小号，封了不算工坊的。</p></div>
+    <div class="jar"><b>记忆搬家</b><em>¥199</em><p>把你和 AI 以前的聊天记录整理、去重，搬进记忆库，新地方也认得你。</p></div>
+    <div class="jar"><b>包月维护</b><em>¥59/月</em><p>坏了帮修、到期帮续、小改动随叫随到。</p></div>
+  </div>
+  <p class="note">开张价限前三位 · 纯前端免费挂链接，带后端的服务器客人自己买，我们帮挑帮装不加钱<br>只接允许商用的开源项目；侵权的、不让商用的不接</p>
+</section>
+
+<section class="sec" id="tea" aria-label="来信">
+  <div class="pic m"></div>
+  <div class="card">
+    <div class="en">You're invited</div>
+    <h2>来喝杯茶</h2>
+    <div class="l">坐下来，说说你的愿望</div>
+    <div class="ct">
+      <div><span>信</span><a href="mailto:xuyuan1007yaoyao@gmail.com">xuyuan1007yaoyao@gmail.com</a></div>
+      <div><span>Telegram</span><a href="https://t.me/XuyuanYao_bot">@XuyuanYao_bot</a></div>
+      <div><span>小红书</span>今晚也许愿</div>
+      <div><span>QQ</span>3942864225</div>
+    </div>
+  </div>
+  <div class="cupw"><button class="cup" id="cup" type="button">一杯茶钱 · 赞赏</button></div>
+</section>
+
+<div class="qr" id="qr" role="dialog" aria-label="赞赏与付款">
+  <div class="in">
+    <figure><img src="qr_zan.png" alt="微信赞赏码"><figcaption>微信赞赏</figcaption></figure>
+    <figure><img src="qr_wxpay.png" alt="微信支付码"><figcaption>微信支付</figcaption></figure>
+    <figure><img src="qr_alipay.png" alt="支付宝码"><figcaption>支付宝</figcaption></figure>
+  </div>
+</div>
+
+<footer>流星工坊 · Atelier Météore · 许个愿，我们把它盖出来</footer>
+
+<script>
+  const qr = document.getElementById('qr');
+  document.getElementById('cup').onclick = () => qr.classList.add('on');
+  qr.onclick = e => { if (e.target === qr) qr.classList.remove('on'); };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') qr.classList.remove('on'); });
+</script>
+</body>
+</html>
