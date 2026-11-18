@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>95食刻 掃碼點餐</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fdf6f4;--card:#fff;--ink:#2b2420;--sub:#8a7f76;--main:#c8453d;--soft:#fbe4e4;--line:#ece4dc}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}body{font-family:-apple-system,"PingFang TC",sans-serif;background:var(--bg);color:var(--ink);padding-bottom:140px}
+header{padding:26px 16px 30px;color:#fff;position:relative;overflow:hidden;background:linear-gradient(135deg,#d2524a,#e88a8a 60%,#f6c1c1)}header:before,header:after{content:"";position:absolute;border-radius:50% 0;background:#fff3;transform:rotate(30deg)}header:before{width:90px;height:90px;right:-20px;top:-20px}header:after{width:50px;height:50px;right:70px;bottom:-14px}.badge{display:inline-grid;place-items:center;width:46px;height:56px;border-radius:22px;background:#fff;color:var(--main);font:900 18px/1 "Noto Serif TC",serif;margin-right:10px;vertical-align:middle;box-shadow:0 3px 0 #0001}
+header h1{font:900 26px "Noto Serif TC",serif;letter-spacing:2px;display:flex;align-items:center}header p{font-size:13px;opacity:.85;margin-top:4px}
+.member{gap:8px;margin:-6px 16px 0;background:var(--card);border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px #0000000d;position:relative}
+.member b{font-size:15px}.member small{color:var(--sub);font-size:12px;display:block}
+.btn{border:0;border-radius:20px;padding:8px 16px;font-size:14px;background:var(--main);color:#fff}
+.btn.ghost{background:var(--soft);color:var(--main)}
+nav{display:flex;gap:8px;padding:14px 16px 6px;overflow-x:auto;position:sticky;top:0;background:var(--bg);z-index:5}
+nav button{border:0;background:var(--card);padding:8px 14px;border-radius:18px;font-size:14px;white-space:nowrap;color:var(--sub)}
+nav button.on{background:var(--main);color:#fff}
+section{padding:6px 16px}
+.cat{font:700 17px "Noto Serif TC",serif;margin:18px 0 10px;color:var(--main);display:flex;align-items:center;gap:8px}.cat:before{content:"";width:6px;height:18px;border-radius:3px;background:var(--main)}
+.item{background:var(--card);border-radius:16px;box-shadow:0 2px 8px #c8453d0d;border:1px solid #f6e3e0;padding:12px;display:flex;gap:12px;margin-bottom:10px;align-items:center}
+.pic{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,var(--soft));display:grid;place-items:center;font:700 15px "Noto Serif TC",serif;color:var(--main);flex:none;border:2px dashed #f0b8b4}
+.item .t{flex:1;min-width:0}.item .t b{font-size:15px}.item .t small{display:block;color:var(--sub);font-size:12px;margin:3px 0}
+.price{color:var(--main);font-weight:600}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:28px;height:28px;border-radius:50%;border:0;background:var(--main);color:#fff;font-size:18px;line-height:1}
+.qty button.m{background:var(--soft);color:var(--main)}
+.bar{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));background:#3a2a2a;box-shadow:0 6px 20px #0003;color:#fff;border-radius:28px;padding:10px 10px 10px 20px;display:flex;justify-content:space-between;align-items:center;z-index:9}
+.bar .sum{font-size:16px}.bar small{display:block;font-size:12px;opacity:.7}
+.sheet{position:fixed;inset:0;background:#0006;display:none;align-items:flex-end;z-index:20}
+.sheet.show{display:flex}
+.panel{background:var(--bg);width:100%;border-radius:20px 20px 0 0;padding:20px 16px 30px;max-height:85vh;overflow:auto}
+.panel h2{font-size:18px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);font-size:15px;margin:6px 0;background:#fff}
+.coupon{background:var(--card);border-radius:12px;border-left:6px solid var(--main);padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.coupon b{color:var(--main);font-size:18px}.coupon small{display:block;color:var(--sub);font-size:12px}
+.wheel{width:240px;height:240px;margin:10px auto 16px;border-radius:50%;position:relative;transition:transform 3.5s cubic-bezier(.2,.8,.2,1);
+background:conic-gradient(#c8553d 0 60deg,#f3e3d8 0 120deg,#e9a23b 0 180deg,#f3e3d8 0 240deg,#7a9e7e 0 300deg,#f3e3d8 0)}
+.wrap{position:relative;width:240px;margin:auto}
+.wrap:after{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);border:10px solid transparent;border-top:16px solid var(--ink)}
+.done{text-align:center;padding:30px 0}.done b{font-size:40px;color:var(--main);display:block}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:20px;font-size:14px;opacity:0;transition:.3s;z-index:30}
+.toast.show{opacity:1}
+.demo{font-size:11px;color:var(--sub);text-align:center;margin-top:20px}
+.lantern{position:absolute;right:22px;top:10px;width:46px;height:70px;border-radius:23px;background:radial-gradient(circle at 40% 35%,#ff8a78,#c8302a);color:#fff;font:900 12px/1.15 "Noto Serif TC",serif;display:grid;place-items:center;box-shadow:0 0 18px #ffb19a88;z-index:1;animation:sway 3s ease-in-out infinite;transform-origin:50% -10px}
+.lantern:before,.lantern:after{content:"";position:absolute;left:12px;width:20px;height:5px;background:#3a2a2a;border-radius:2px}.lantern:before{top:-3px}.lantern:after{bottom:-3px}
+@keyframes sway{50%{transform:rotate(4deg)}}
+.petal{position:absolute;width:10px;height:10px;background:#ffe3e6;border-radius:10px 0;opacity:.8;animation:fall linear infinite}
+@keyframes fall{from{transform:translateY(-20px) rotate(0)}to{transform:translateY(140px) rotate(300deg)}}
+</style></head><body>
+<header><div class="lantern"><span style="text-align:center">95<br>食<br>刻</span></div><i class="petal" style="left:20%;animation-duration:6s"></i><i class="petal" style="left:55%;animation-duration:8s;animation-delay:2s"></i><i class="petal" style="left:80%;animation-duration:7s;animation-delay:4s"></i><h1 id="shop">95食刻</h1><p><span id="table"></span> · 掃碼點餐 · 祝你好運！</p></header>
+<div class="member" id="mem"></div>
+<nav id="nav"></nav>
+<section id="menu"></section>
+<p class="demo">示範版：點單不會真的送出、不會扣款</p>
+<div class="bar"><div><span class="sum" id="sum">NT$0</span><small id="cnt">還沒點東西</small></div><button class="btn" onclick="openCart()">去結帳</button></div>
+<div class="sheet" id="sheet" onclick="if(event.target===this)close_()"><div class="panel" id="panel"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+// 菜单先用假的，瑶瑶给了真菜单再换
+const MENU=[
+ {cat:"早餐吐司",items:[["幸福爆蛋烤肉吐司","綿密蛋沙拉＋95烤肉片＋香煎蛋",95,"t1",110],["烤肉抱蛋吐司","綿密蛋沙拉＋95烤肉片",85,"t2",100],["元氣烤肉蛋吐司","香煎蛋＋95烤肉片",75,"t3",90],["快樂蛋吐司","美味綿密蛋沙拉",65,"t4",80]]},
+ {cat:"早餐套餐",items:[["A 套餐","幸福爆蛋烤肉吐司＋大杯飲料，原價 135",120,"A",130],["B 套餐","烤肉抱蛋吐司＋大杯飲料，原價 125",110,"B",120],["C 套餐","元氣烤肉蛋吐司＋大杯飲料，原價 115",100,"C",110],["D 套餐","快樂蛋吐司＋大杯飲料，原價 105",90,"D",100]]},
+ {cat:"早餐飲料",items:[["大杯紅茶","冰／溫",40],["大杯奶茶","冰／溫",40],["大杯豆漿","冰／溫",40],["大杯紅茶豆漿","冰／溫",40]]},
+ {cat:"豬肉串",items:[["三層肉","",45],["香蔥肉串","",60],["金針菇肉串","",60],["黑胡椒豬肉串","",50],["香酥肥腸","",55],["培根年糕","",60],["美味香腸","",50],["馬告香腸","",65]]},
+ {cat:"牛羊",items:[["黑胡椒牛肉串","",60],["沙朗牛肉串","",50],["孜然羊肉串","",55]]},
+ {cat:"雞肉串",items:[["雞柳串","",35],["香酥雞皮","",40],["雞屁股","",40],["雞心","",40],["雞胗","",40],["無骨雞腿排（醬香）","",65],["無骨雞腿排（泰式）","",65]]},
+ {cat:"海鮮",items:[["花枝丸","",35],["章魚足","",90],["秋刀魚","",120],["深海魷魚","",160]]},
+ {cat:"蔬菜",items:[["香菇","",35],["杏鮑菇","",35],["青椒","",40],["四季豆","",50],["玉米","",50],["櫛瓜","",50]]},
+ {cat:"下酒小菜",items:[["豆干","",35],["甜不辣","",35],["豬血糕","",35],["百頁豆腐","",35],["豆皮","",40],["米腸","",40],["蘿蔔糕","",40],["銀絲卷","",40]]},
+ {cat:"美食家必點",items:[["古早味油蔥拌麵","",50],["胡麻蒜拌麵","兩人份",100],["腸腸久久","",120]]},
+ {cat:"單點炸物",items:[["土魠魚","任選三種炸物現折 50",270],["雞米花","任選三種炸物現折 50",150],["洋蔥圈","任選三種炸物現折 50",150],["雞柳條","任選三種炸物現折 50",150],["波浪薯條","任選三種炸物現折 50",70],["檸檬雞翅","任選三種炸物現折 50",350]]},
+ {cat:"Sour / Highball",items:[["彈珠汽水沙瓦","大杯 180",120],["海鹽檸檬沙瓦","大杯 180",120],["乳酸飲沙瓦","大杯 180",120],["巨峰葡萄沙瓦","大杯 180",120],["岩鹽荔枝沙瓦","大杯 180",120],["蜜桃果泥沙瓦","大杯 180",120],["Highball","威士忌香氣，氣泡清爽",180],["Double Highball","2 倍威士忌",250]]},
+ {cat:"啤酒調酒",items:[["韓國初飲（原味）","",200],["18天台灣生啤酒","",140],["麒麟一番搾生啤","",130],["金尊百威啤酒","",150],["雪山啤酒","",120],["可樂娜","",120],["經典台灣啤酒","",100],["百威啤酒","",80],["海醉","",666],["梅你不可","",180]]},
+ {cat:"無酒精",items:[["可爾必思","",40],["可樂","",45],["雪碧","",45],["蘋果西打","",45],["礦泉水","",20],["冷泡綠茶","",100],["冷泡紅茶","",100],["冷泡黃金蕎麥茶","",100]]},
+];
+const P=new URLSearchParams(location.search);
+document.getElementById('table').textContent=(P.get('t')||'5')+' 号桌';
+let cart={},user=null,coupons=[{id:1,name:'新会员 9 折',off:.9,min:0,used:false}],picked=null,spun=false;
+const $=s=>document.getElementById(s);
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1600)}
+function renderMem(){$('mem').innerHTML=user?`<div><b>${user.name}</b><small>会员 · 点数 ${user.pts} · ${coupons.filter(c=>!c.used).length} 张券</small></div><div><button class="btn ghost" onclick="openCoupons()">我的券</button> <button class="btn" onclick="openLucky()">抽奖</button></div>`
+ :`<div><b>加入會員</b><small>首單 9 折，還能抽獎</small></div><button class="btn" onclick="openLogin()">登入 / 加入</button>`}
+function renderMenu(){$('nav').innerHTML=MENU.map((c,i)=>`<button class="${i?'':'on'}" onclick="go(${i},this)">${c.cat}</button>`).join('');
+ $('menu').innerHTML=MENU.map((c,i)=>`<div class="cat" id="c${i}">${c.cat}</div>`+c.items.map(([n,d,p,im,ch])=>`<div class="item"><div class="pic">${n.replace(/[（(].*/,"").slice(0,1)}</div><div class="t"><b>${n}</b><small>${d}</small><span class="price">NT$${p}</span>${ch?`<small style="display:inline;margin-left:6px">加起士 ${ch}</small>`:""}</div><div class="qty">${cart[n]?`<button class="m" onclick="add('${n}',${p},-1)">−</button><span>${cart[n].q}</span>`:(cart[n+'（加起士）']?`<span>${cart[n+'（加起士）'].q}</span>`:'')}<button onclick="${ch?`pickCheese('${n}',${p},${ch})`:`add('${n}',${p},1)`}">+</button></div></div>`).join('')).join('');
+ const s=total();$('sum').textContent='NT$'+s.pay;$('cnt').textContent=s.n?`${s.n} 样${s.cut?' · 已折 '+s.cut:''}`:'還沒點東西'}
+function pickCheese(n,p,ch){show(`<h2>${n}</h2><div class="coupon" onclick="add('${n}',${p},1);close_();toast('加了一份')"><div><b>原味</b><small>NT$${p}</small></div><button class="btn ghost">選</button></div><div class="coupon" onclick="add('${n}（加起士）',${ch},1);close_();toast('加了一份加起士')"><div><b>加起士</b><small>NT$${ch}</small></div><button class="btn">選</button></div>`)}
+function go(i,b){document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('c'+i).scrollIntoView({behavior:'smooth',block:'start'})}
+function add(n,p,d){cart[n]=cart[n]||{p,q:0};cart[n].q+=d;if(cart[n].q<=0)delete cart[n];renderMenu()}
+function total(){let sum=0,n=0;for(const k in cart){sum+=cart[k].p*cart[k].q;n+=cart[k].q}
+ const c=picked&&coupons.find(x=>x.id===picked);let pay=sum;if(c){pay=c.off<1?Math.round(sum*c.off):Math.max(0,sum-c.off)}return{sum,n,pay,cut:sum-pay}}
+function show(h){$('panel').innerHTML=h;$('sheet').classList.add('show')}
+function close_(){$('sheet').classList.remove('show')}
+function openLogin(){show(`<h2>登入 / 加入會員</h2><input id="ph" placeholder="手机号码" inputmode="tel"><input id="nm" placeholder="怎么称呼你"><button class="btn" style="width:100%;margin-top:10px" onclick="login()">送出</button><p class="demo">示范版不会真的发验证码</p>`)}
+function login(){user={name:($('nm').value||'会员'),pts:20};close_();renderMem();toast('加入成功，送你一张 9 折券')}
+function openCoupons(){show(`<h2>我的券</h2>`+coupons.map(c=>`<div class="coupon"><div><b>${c.off<1?c.off*10+' 折':'折 '+c.off+' 元'}</b><small>${c.name}${c.used?' · 已用':''}</small></div>${c.used?'':`<button class="btn ghost" onclick="pick(${c.id})">${picked===c.id?'已选':'使用'}</button>`}</div>`).join(''))}
+function pick(id){if(!user){openLogin();return}picked=picked===id?null:id;close_();renderMenu();toast(picked?'券已套用':'取消用券')}
+const PRIZES=[['折 30 元',30],['谢谢光临',0],['折 20 元',20],['谢谢光临',0],['送可樂',45],['谢谢光临',0]];
+function openLucky(){if(!user){openLogin();return}show(`<h2>今日抽奖</h2><div class="wrap"><div class="wheel" id="wh"></div></div><button class="btn" style="width:100%" onclick="spin()" ${spun?'disabled':''}>${spun?'今天抽过了':'抽一次'}</button><p class="demo" id="res"></p>`)}
+function spin(){if(spun)return;spun=true;const i=Math.floor(Math.random()*6);const deg=360*5+(360-(i*60+30));$('wh').style.transform=`rotate(${deg}deg)`;
+ setTimeout(()=>{const [n,v]=PRIZES[i];$('res').textContent=v?'抽中：'+n+'，已放进我的券':'这次没中，明天再来';if(v){coupons.push({id:Date.now(),name:'抽奖 '+n,off:v,used:false});renderMem()}},3600)}
+function openCart(){const s=total();if(!s.n){toast('先点点东西');return}
+ show(`<h2>确认订单 · ${$('table').textContent}</h2>`+Object.entries(cart).map(([n,c])=>`<div class="row"><span>${n} × ${c.q}</span><span>NT$${c.p*c.q}</span></div>`).join('')+
+ `<div class="row"><span>用券</span><span>${picked?'−NT$'+s.cut:user?'<a onclick="openCoupons()" style="color:var(--main)">选一张</a>':'<a onclick="openLogin()" style="color:var(--main)">登入会员可用券</a>'}</span></div><div class="row"><b>合计</b><b class="price">NT$${s.pay}</b></div>
+ <button class="btn" style="width:100%;margin-top:14px" onclick="pay('line')">LINE Pay 付款</button><button class="btn ghost" style="width:100%;margin-top:8px" onclick="pay('cash')">到柜台付</button>`)}
+function pay(w){const s=total();if(picked){coupons.find(c=>c.id===picked).used=true;picked=null}if(user)user.pts+=Math.floor(s.pay/10);
+ const no=Math.floor(Math.random()*900+100);cart={};renderMenu();renderMem();
+ show(`<div class="done"><b>#${no}</b><p>单子已送到柜台 iPad</p><p class="demo">${w==='line'?'已付款 NT$'+s.pay:'请到柜台付 NT$'+s.pay}${user?' · 点数 +'+Math.floor(s.pay/10):''}</p><button class="btn" style="margin-top:16px" onclick="close_()">好</button></div>`)}
+renderMem();renderMenu();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=+e.target.id.slice(1);const bs=document.querySelectorAll('nav button');bs.forEach(x=>x.classList.remove('on'));bs[i].classList.add('on');bs[i].scrollIntoView({inline:'center',block:'nearest'})}}),{rootMargin:'-60px 0px -75% 0px'});
+document.querySelectorAll('.cat').forEach(c=>io.observe(c));
+</script></body></html>
